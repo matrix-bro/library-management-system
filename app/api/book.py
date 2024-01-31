@@ -77,9 +77,9 @@ class UpdateBookDetails(APIView):
             return Response(
                 {
                     "message": "Book not found.",
-                    "code": status.HTTP_400_BAD_REQUEST,
+                    "code": status.HTTP_404_NOT_FOUND,
                 },
-                status=status.HTTP_400_BAD_REQUEST,
+                status=status.HTTP_404_NOT_FOUND,
             )
 
         book_serializer = BookDetailsSerializer(book, data=request.data)

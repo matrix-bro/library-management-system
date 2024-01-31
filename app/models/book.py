@@ -19,7 +19,7 @@ class Book(models.Model):
 
 class BookDetails(models.Model):
     detail_id = models.BigAutoField(primary_key=True)
-    book = models.ForeignKey(Book, related_name="book_details", on_delete=models.CASCADE)
+    book = models.OneToOneField(Book, related_name="book_details", on_delete=models.CASCADE)
     number_of_pages = models.PositiveIntegerField()
     publisher = models.CharField(max_length=100)
     language = models.CharField(max_length=100)

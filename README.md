@@ -63,7 +63,7 @@ python manage.py runserver
     - Copy the access token
   - Now, in the `Authorization Header`, choose `Bearer Token` and paste the `access token` there
 
-1. User APIs
+## 1. User APIs
 
 ### Create a New User
 
@@ -77,12 +77,11 @@ Endpoint: `GET /api/users/`
 
 Endpoint: `GET /api/users/{user_id}/`
 
-2. Book APIs
+## 2. Book APIs
 
 ### Add a New Book
 
 Endpoint: `POST /api/books/create/`
-Permissions: Requires authentication
 
 ### List All Books
 
@@ -96,7 +95,7 @@ Endpoint: `GET /api/books/details/{book_id}/`
 
 Endpoint: `PUT /api/books/update/{book_id}/`
 
-3. BorrowedBooks APIs
+## 3. BorrowedBooks APIs
 
 ### Borrow a Book
 

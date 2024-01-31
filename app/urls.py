@@ -17,4 +17,9 @@ urlpatterns = [
     path('books/list/', book.ListBooks.as_view(), name='list_books'),
     path('books/details/<int:pk>/', book.GetBookById.as_view(), name='book_details'),
     path('books/update/<int:pk>/', book.UpdateBookDetails.as_view(), name='book_update'),
+
+    # Borrow Boook
+    path('books/borrow/<int:user_id>/<int:book_id>/', book.BorrowBook.as_view(), name='borrow_book'),
+    path('books/return/<int:book_id>/', book.ReturnBook.as_view(), name='return_book'),
+    path('books/currently_borrowed/', book.CurrentlyBorrowedBooks.as_view(), name='currently_borrowed_books'),
 ]

@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.db.models.query import QuerySet
 
 class Book(models.Model):
     book_id = models.BigAutoField(primary_key=True)
@@ -31,11 +32,18 @@ class BookDetails(models.Model):
         return f"Details: {self.book.title}"
 
 
+class CurrentlyBorrowedBooks(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        return super().get_queryset().filter(return_date__isnull=True)
+
 class BorrowedBooks(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     borrow_date = models.DateField()
     return_date = models.DateField(null=True, blank=True)
+
+    objects = models.Manager()  # Default manager
+    currently_borrowed = CurrentlyBorrowedBooks()   # Custom manager for displaying currently borrowed books
 
     class Meta:
         verbose_name_plural = "borrowedbooks"

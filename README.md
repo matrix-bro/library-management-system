@@ -69,13 +69,88 @@ python manage.py runserver
 
 Endpoint: `POST /api/register/`
 
+Request:
+
+- Method: `POST`
+- Headers:
+  - `Content-Type: application/json`
+- Body:
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@gmail.com",
+  "membership_date": "2024-01-30",
+  "password": "password",
+  "password2": "password"
+}
+```
+
+- Response:
+
+```json
+{
+  "success": "User account created successfully.",
+  "data": {
+    "name": "John Doe",
+    "email": "john@gmail.com",
+    "membership_date": "2024-01-30"
+  },
+  "status": 201
+}
+```
+
 ### List All Users (excluding admin)
 
 Endpoint: `GET /api/users/`
 
+Request:
+
+- Method: `GET`
+- Headers:
+
+  - `Authorization: Bearer {your_access_token}`
+
+- Response:
+
+```json
+[
+  {
+    "user_id": 1,
+    "name": "John Doe",
+    "email": "john@gmail.com",
+    "membership_date": "2024-01-30"
+  },
+  {
+    "user_id": 2,
+    "name": "Another User",
+    "email": "another@gmail.com",
+    "membership_date": "2024-01-31"
+  }
+]
+```
+
 ### Get User by ID
 
 Endpoint: `GET /api/users/{user_id}/`
+
+Request:
+
+- Method: `GET`
+- Headers:
+
+  - `Authorization: Bearer {your_access_token}`
+
+- Response:
+
+```json
+{
+  "user_id": 1,
+  "name": "John Doe",
+  "email": "john@gmail.com",
+  "membership_date": "2024-01-30"
+}
+```
 
 ## 2. Book APIs
 
@@ -83,17 +158,131 @@ Endpoint: `GET /api/users/{user_id}/`
 
 Endpoint: `POST /api/books/create/`
 
+Request:
+
+- Method: `POST`
+- Headers:
+  - `Content-Type: application/json`
+  - `Authorization: Bearer {your_access_token}`
+- Body:
+
+```json
+{
+  "title": "Book 1",
+  "isbn": "123456789",
+  "published_date": "2023-01-01",
+  "genre": "genre1"
+}
+```
+
+- Response:
+
+```json
+{
+  "title": "Book 1",
+  "isbn": "123456789",
+  "published_date": "2023-01-01",
+  "genre": "genre1"
+}
+```
+
 ### List All Books
 
 Endpoint: `GET /api/books/list/`
+
+Request:
+
+- Method: `GET`
+- Headers:
+
+  - `Authorization: Bearer {your_access_token}`
+
+- Response:
+
+```json
+[
+  {
+    "title": "Book 2",
+    "isbn": "456123789",
+    "published_date": "2022-01-01",
+    "genre": "genre2"
+  },
+  {
+    "title": "Book 1",
+    "isbn": "123456789",
+    "published_date": "2023-01-01",
+    "genre": "genre1"
+  }
+]
+```
 
 ### Get Book by ID
 
 Endpoint: `GET /api/books/details/{book_id}/`
 
+Request:
+
+- Method: `GET`
+- Headers:
+
+  - `Authorization: Bearer {your_access_token}`
+
+- Response:
+
+```json
+{
+  "title": "Book 2",
+  "isbn": "456123789",
+  "published_date": "2022-01-01",
+  "genre": "genre2"
+}
+```
+
 ### Assign/Update Book Details
 
 Endpoint: `PUT /api/books/update/{book_id}/`
+
+Request:
+
+- Method: `PUT`
+- Headers:
+  - `Content-Type: application/json`
+  - `Authorization: Bearer {your_access_token}`
+- Body:
+
+```json
+{
+  "title": "Book 1 updated",
+  "isbn": "10112345",
+  "published_date": "2023-01-30",
+  "genre": "genre 1 updated",
+  "book_details": {
+    "number_of_pages": 100,
+    "publisher": "publisher 1",
+    "language": "en"
+  }
+}
+```
+
+- Response:
+
+```json
+{
+  "message": "Book details updated successfully.",
+  "data": {
+    "title": "Book 1 updated",
+    "isbn": "10112345",
+    "published_date": "2023-01-30",
+    "genre": "genre 1 updated",
+    "book_details": {
+      "number_of_pages": 100,
+      "publisher": "publisher 1",
+      "language": "en"
+    }
+  },
+  "code": 200
+}
+```
 
 ## 3. BorrowedBooks APIs
 
@@ -101,13 +290,91 @@ Endpoint: `PUT /api/books/update/{book_id}/`
 
 Endpoint: `POST /api/books/borrow/{user_id}/{book_id}/`
 
+Request:
+
+- Method: `POST`
+- Headers:
+  - `Content-Type: application/json`
+  - `Authorization: Bearer {your_access_token}`
+- Body:
+
+```json
+{
+  "borrow_date": "2024-01-30"
+}
+```
+
+- Response:
+
+```json
+{
+  "message": "Book borrowed successfully.",
+  "code": 200
+}
+```
+
 ### Return a Book
 
 Endpoint: `PUT /api/books/return/{book_id}/`
 
+Request:
+
+- Method: `PUT`
+- Headers:
+  - `Content-Type: application/json`
+  - `Authorization: Bearer {your_access_token}`
+- Body:
+
+```json
+{
+  "return_date": "2024-01-31"
+}
+```
+
+- Response:
+
+```json
+{
+  "message": "Book returned successfully.",
+  "code": 200
+}
+```
+
 ### List All Borrowed Books
 
 Endpoint: `GET /api/books/currently_borrowed/`
+
+Request:
+
+- Method: `GET`
+- Headers:
+
+  - `Authorization: Bearer {your_access_token}`
+
+- Response:
+
+```json
+{
+  "message": "List of currently borrowed books",
+  "data": [
+    {
+      "id": 2,
+      "borrow_date": "2024-01-30",
+      "return_date": null,
+      "user": 2,
+      "book": 2
+    },
+    {
+      "id": 1,
+      "borrow_date": "2024-01-30",
+      "return_date": null,
+      "user": 1,
+      "book": 1
+    }
+  ],
+  "code": 200
+}
+```
 
 ## Running Tests
 

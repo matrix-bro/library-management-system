@@ -2,6 +2,15 @@
 
 A library management system created using Django
 
+## Table of Contents
+
+- [Project Setup](#project-setup)
+- [API Documentation](#api-documentation)
+  - [User APIs](#1-user-apis)
+  - [Book APIs](#2-book-apis)
+  - [BorrowedBooks APIs](#3-borrowedbooks-apis)
+- [Running Tests](#running-tests)
+
 ## Project Setup
 
 1. Clone the repository:
@@ -86,7 +95,7 @@ Request:
 }
 ```
 
-- Response:
+Response:
 
 ```json
 {
@@ -111,7 +120,7 @@ Request:
 
   - `Authorization: Bearer {your_access_token}`
 
-- Response:
+Response:
 
 ```json
 [
@@ -141,7 +150,7 @@ Request:
 
   - `Authorization: Bearer {your_access_token}`
 
-- Response:
+Response:
 
 ```json
 {
@@ -175,7 +184,7 @@ Request:
 }
 ```
 
-- Response:
+Response:
 
 ```json
 {
@@ -197,7 +206,7 @@ Request:
 
   - `Authorization: Bearer {your_access_token}`
 
-- Response:
+Response:
 
 ```json
 [
@@ -227,7 +236,7 @@ Request:
 
   - `Authorization: Bearer {your_access_token}`
 
-- Response:
+Response:
 
 ```json
 {
@@ -264,7 +273,7 @@ Request:
 }
 ```
 
-- Response:
+Response:
 
 ```json
 {
@@ -304,7 +313,7 @@ Request:
 }
 ```
 
-- Response:
+Response:
 
 ```json
 {
@@ -331,7 +340,7 @@ Request:
 }
 ```
 
-- Response:
+Response:
 
 ```json
 {
@@ -351,7 +360,7 @@ Request:
 
   - `Authorization: Bearer {your_access_token}`
 
-- Response:
+Response:
 
 ```json
 {

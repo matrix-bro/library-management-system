@@ -14,7 +14,7 @@ class UserAPITestCase(APITestCase):
         response = self.client.post(url, self.user1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        # testing with same email
+        # testing with same email again
         response = self.client.post(url, self.user1)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)     # throws HTTP_400_BAD_REQUEST
 
@@ -29,17 +29,22 @@ class UserAPITestCase(APITestCase):
         self.assertEqual(response.data['data']['email'], 'test@example.com')
         self.assertEqual(User.objects.count(), 1)
 
-    def test_get_all_users(self):
+    def test_get_all_users_except_superuser(self):
         url = reverse('users')
         
         # creating and authenticating a user
         user = User.objects.create_user(name=self.user1['name'], email=self.user1['email'], membership_date=self.user1['membership_date'], password=self.user1['password'])
+
+        # creating a superuser
+        # the users list must not contain superuser
+        super_user = User.objects.create_superuser(name=self.user1['name'], email='superuser@gmail.com', membership_date=self.user1['membership_date'], password=self.user1['password'])
+
         self.client.force_authenticate(user=user)
 
         response = self.client.get(url)
-        
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
+        self.assertNotIn(('email', super_user.email), response.data)
 
     def test_get_user_by_id(self):
         user = User.objects.create_user(name=self.user1['name'], email=self.user1['email'], membership_date=self.user1['membership_date'], password=self.user1['password'])
